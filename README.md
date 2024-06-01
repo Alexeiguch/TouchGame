@@ -3,6 +3,10 @@
 ## Overview
 Welcome to the Finger Selector App! This fun and interactive application is designed to randomly select a finger from the ones placed on the screen, making it a perfect companion for board games, card games, and various group activities.
 
+<video style="max-width: 100%; height: auto;" controls>
+  <source src="demo.mp4" type="video/mp4">
+</video>
+
 ## Features
 - **Random Finger Selection**: Simply place your fingers on the screen, and the app will randomly select one.
 - **Multi-Player Support**: Supports up to 5 simultaneous players.
