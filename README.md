@@ -3,9 +3,8 @@
 ## Overview
 Welcome to the Finger Selector App! This fun and interactive application is designed to randomly select a finger from the ones placed on the screen, making it a perfect companion for board games, card games, and various group activities.
 
-<video style="max-width: 100%; height: auto;" controls>
-  <source src="demo.mp4" type="video/mp4">
-</video>
+[![Watch the video](https://raw.githubusercontent.com/Alexeiguch/TouchGame/main/demo.mp4)]([https://raw.githubusercontent.com/username/repository/branch/path/to/video.mp4](https://raw.githubusercontent.com/Alexeiguch/TouchGame/main/demo.mp4))
+
 
 ## Features
 - **Random Finger Selection**: Simply place your fingers on the screen, and the app will randomly select one.
