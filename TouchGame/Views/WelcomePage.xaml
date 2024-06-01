@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TouchGame"
+             x:Class="TouchGame.WelcomePage"
+             x:DataType="local:WelcomeViewModel"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="root">
+
+    <Grid RowDefinitions="*,Auto,Auto,Auto,Auto,*"
+          Background="{ Binding SelectedColor }"
+          Padding="{ OnPlatform Android='30,40,30,20', iOS='30,40,30,0' }">
+
+        <Label Margin="0,30,0,0"
+               Text="Touch Game"
+               TextColor="White"
+               FontSize="50"
+               FontFamily="{ DynamicResource BoldFontFamily }"
+               HorizontalOptions="Center"
+               FontAttributes="Bold">
+            <Label.Shadow>
+                <Shadow Radius="8" Opacity="0.4" Brush="Black" />
+            </Label.Shadow>
+        </Label>
+
+        <Label Grid.Row="1"
+               TextColor="White"
+               FontSize="18"
+               FontFamily="{ DynamicResource BoldFontFamily }"
+               VerticalOptions="End"
+               Text="Winners" />
+
+        <HorizontalStackLayout Grid.Row="2"
+                               Padding="10,0"
+                               Margin="0,20,0,50"
+                               Spacing="18"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               BindableLayout.ItemsSource="{ Binding Winners }">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="x:Int32">
+                    <local:SelectableButton
+                        Text="{ Binding . }"
+                        SelectedValue="{ Binding BindingContext.WinnersCount, Source={x:Reference root} }"
+                        BackgroundColor="#33ffffff"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Padding="4"
+                        FontSize="20"
+                        TextColor="White"
+                        BorderColor="White"
+                        BorderWidth="4"
+                        CornerRadius="12"
+                        Command="{ Binding BindingContext.SelectWinnersCommand, Source={x:Reference root} }"
+                        CommandParameter="{ Binding . }">
+                        <local:SelectableButton.SelectedStyle>
+                            <Style TargetType="local:SelectableButton">
+                                <Setter Property="BackgroundColor" Value="White" />
+                                <Setter Property="TextColor" Value="Black" />
+                            </Style>
+                        </local:SelectableButton.SelectedStyle>
+                    </local:SelectableButton>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>
+
+        <!--<Label Grid.Row="3"
+               TextColor="White"
+               FontSize="18"
+               FontFamily="{ DynamicResource BoldFontFamily }"
+               VerticalOptions="End"
+               Text="Colors" />
+
+        <HorizontalStackLayout Grid.Row="4"
+                               Padding="10,0"
+                               Margin="0,20,0,50"
+                               Spacing="18"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               BindableLayout.ItemsSource="{ Binding BackgroundColors }">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <RoundRectangle Fill="{ Binding . }"
+                                    CornerRadius="12"
+                                    HeightRequest="60"
+                                    WidthRequest="60">
+                         <RoundRectangle.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{ Binding BindingContext.SelectBackgroundCommand, Source={x:Reference root} }"
+                                CommandParameter="{ Binding . }" />
+                        </RoundRectangle.GestureRecognizers>
+                    </RoundRectangle>
+
+                    <local:SelectableBorder
+                        SelectedValue="{ Binding BindingContext.SelectedColor, Source={x:Reference root} }"
+                        HeightRequest="60"
+                        WidthRequest="60"
+                        Background="{ Binding . }"
+                        Stroke="White"
+                        StrokeThickness="4"
+                        StrokeShape="RoundRectangle 12">
+
+                        <local:SelectableBorder.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{ Binding BindingContext.SelectBackgroundCommand, Source={x:Reference root} }"
+                                CommandParameter="{ Binding . }" />
+                        </local:SelectableBorder.GestureRecognizers>
+
+                        <local:SelectableBorder.SelectedStyle>
+                            <Style TargetType="local:SelectableBorder">
+                                <Setter Property="Stroke" Value="Black" />
+                            </Style>
+                        </local:SelectableBorder.SelectedStyle>
+                    </local:SelectableBorder>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </HorizontalStackLayout>-->
+
+        <Button Grid.Row="5"
+                Command="{ Binding StartGameCommand }"
+                IsEnabled="{ Binding IsEnabled }"
+                BackgroundColor="#62ffffff"
+                BorderColor="White"
+                CornerRadius="18"
+                Text="Start Game"
+                TextColor="White"
+                FontSize="18"
+                HeightRequest="52"
+                FontAttributes="Bold"
+                VerticalOptions="End"
+                HorizontalOptions="Fill" />
+    </Grid>
+</ContentPage>
