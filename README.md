@@ -9,16 +9,16 @@ Welcome to the Finger Selector App! This fun and interactive application is desi
 - **Random Finger Selection**: Simply place your fingers on the screen, and the app will randomly select one.
 - **Multi-Player Support**: Supports up to 5 simultaneous players.
 - **Customizable Winners**: Easily change the number of winners based on your game's needs.
-- **Cross-Platform Compatibility**: Built using .NET MAUI, optimized for iOS.
+- **Cross-Platform Compatibility**: Built using .NET MAUI, optimized for Android and iOS.
 
 ## How to Use
-1. **Launch the App**: Open the Finger Selector App on your iOS device.
+1. **Launch the App**: Open the Finger Selector App on your Android and iOS device.
 2. **Set the Number of Winners**: Use the settings menu to specify how many winners you need.
 3. **Place Fingers on Screen**: Have all participants place one finger each on the screen. The app supports up to 5 players.
 4. **Random Selection**: The game starts automatically depending on the winners specified and the number of active touches.
 
 ## Technology
-- **Platform**: iOS
+- **Platform**: Android, iOS
 - **Framework**: .NET MAUI
 
 ## Contributing
