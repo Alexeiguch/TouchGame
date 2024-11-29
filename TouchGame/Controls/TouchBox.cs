@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Behaviors;
 using Microsoft.Maui.Controls.Shapes;
 using SkiaSharp.Views.Maui;
+using SkiaSharp.Views.Maui.Controls;
 
 namespace TouchGame
 {
@@ -39,10 +40,8 @@ namespace TouchGame
             private set { SetValue(TouchesCountPropertyKey, value); }
         }
 
-        internal event EventHandler<SKTouchEventArgs> Touched;
-
         private Label _title;
-        private CustomSKCanvasView _touchCanvas;
+        private SKCanvasView _touchCanvas;
         private Dictionary<long, View> _activeSpots = new();
 
         private int _startCount;
@@ -70,70 +69,76 @@ namespace TouchGame
 
         private void OnCanvasTouch(object sender, SKTouchEventArgs e)
         {
+            var density = DeviceDisplay.Current.MainDisplayInfo.Density;
+            var id = e.Id;
+            var location = new Point(e.Location.X / density, e.Location.Y / density);
+
             switch (e.ActionType)
             {
                 case SKTouchAction.Pressed:
-                    OnPressed(e);
+                    OnPressed(id, location);
                     break;
 
                 case SKTouchAction.Moved:
-                    OnMoved(e);
+                    OnMoved(id, location);
                     break;
 
                 case SKTouchAction.Cancelled:
                 case SKTouchAction.Released:
-                    OnReleased(e);
+                    OnReleased(id);
                     break;
-                    //OnCancelled(e);
-                    //break;
             }
+
+            e.Handled = true;
         }
 
-        private void OnPressed(SKTouchEventArgs args)
+        private void OnPressed(long id, Point location)
         {
             if (_waitToFinish)
+            {
+                return;
+            }
+
+            if (TouchesCount == MAX_ALLOWED_TOUCHES)
             {
                 return;
             }
 
             TouchesCount++;
 
-            var touch = new SKTouch(args);
-            Touched?.Invoke(this, args);
+            var touch = new SKTouch(location.X, location.Y, id);
 
             var touchSpot = CreateTouchSpot(touch);
 
-            _activeSpots.Add(args.Id, touchSpot);
+            _activeSpots.Add(id, touchSpot);
 
             if (TouchesCount >= Winners + 1)
             {
                 _countdownCancellationToken?.Cancel();
                 _countdownCancellationToken = new CancellationTokenSource();
-                //Dispatcher.DispatchDelayed(TimeSpan.FromSeconds(1),
-                //    () =>
                 StartCountdown(_countdownCancellationToken.Token);
             }
         }
 
-        private void OnMoved(SKTouchEventArgs args)
+        private void OnMoved(long id, Point location)
         {
-            if (_activeSpots.TryGetValue(args.Id, out View spot))
+            if (_activeSpots.TryGetValue(id, out View spot))
             {
-                spot.TranslationX = args.Location.X - spot.WidthRequest / 2;
-                spot.TranslationY = args.Location.Y - spot.HeightRequest / 2;
+                spot.TranslationX = location.X - spot.WidthRequest / 2;
+                spot.TranslationY = location.Y - spot.HeightRequest / 2;
             }
         }
 
-        private void OnReleased(SKTouchEventArgs args)
+        private void OnReleased(long id)
         {
             if (_waitToFinish)
             {
                 return;
             }
 
-            if (_activeSpots.TryGetValue(args.Id, out View spot))
+            if (_activeSpots.TryGetValue(id, out View spot))
             {
-                _activeSpots.Remove(args.Id);
+                _activeSpots.Remove(id);
                 this.Remove(spot);
 
                 TouchesCount--;
@@ -143,22 +148,9 @@ namespace TouchGame
                 if (TouchesCount >= Winners + 1 && _startCount > 0)
                 {
                     _countdownCancellationToken = new CancellationTokenSource();
-                    //Dispatcher.DispatchDelayed(TimeSpan.FromSeconds(1),
-                    //    () =>
                     StartCountdown(_countdownCancellationToken.Token);
-                        //);
                 }
             }
-        }
-
-        private void OnCancelled(SKTouchEventArgs args)
-        {
-            if (TouchesCount == MAX_ALLOWED_TOUCHES)
-            {
-                return;
-            }
-
-            OnReleased(args);
         }
 
         private async void StartCountdown(CancellationToken cancellationToken)
@@ -222,13 +214,14 @@ namespace TouchGame
                 Shadow = new Shadow { Brush = Colors.Gray, Radius = 12, Opacity = 0.3f }
             };
 
-            newBox.TranslationX = touch.X - newBox.WidthRequest / 2;
-            newBox.TranslationY = touch.Y - newBox.HeightRequest / 2;
-
             var upDownScale = ScaleBehavior.UpDownScaleBehavior(Easing.Linear, 200, 1.5, downLength: 200);
             newBox.Behaviors.Add(upDownScale);
 
             this.Add(newBox);
+
+            newBox.TranslationX = touch.X - newBox.WidthRequest / 2;
+            newBox.TranslationY = touch.Y - newBox.HeightRequest / 2;
+
             VibrationEffects.PerformHaptic(HapticFeedbackType.Click);
             upDownScale.AnimateCommand.Execute(CancellationToken.None);
 
@@ -237,7 +230,7 @@ namespace TouchGame
 
         private void Initialize()
         {
-            _touchCanvas = new CustomSKCanvasView
+            _touchCanvas = new SKCanvasView
             {
                 BackgroundColor = Colors.Transparent,
                 HeightRequest = Height,
@@ -285,8 +278,6 @@ namespace TouchGame
                 this.Remove(item);
             }
 
-            _touchCanvas.ResetTouches = true;
-
             _activeSpots.Clear();
             _activeSpots = new Dictionary<long, View>();
             TouchesCount = 0;
@@ -315,13 +306,5 @@ namespace TouchGame
             X = x;
             Y = y;
         }
-
-        internal SKTouch(SKTouchEventArgs args)
-        {
-            Id = args.Id;
-            X = args.Location.X;
-            Y = args.Location.Y;
-        }
     }
 }
-

@@ -20,10 +20,6 @@ public static class MauiProgram
                 fonts.AddFont("Lato-Light.ttf", "LatoLight");
                 fonts.AddFont("Lato-Regular.ttf", "LatoRegular");
                 fonts.AddFont("ionicons.ttf", "IonicIcons");
-			})
-			.ConfigureMauiHandlers((handlers) =>
-			{
-				handlers.AddHandler<CustomSKCanvasView, CustomSKCanvasViewHandler>();
 			});
 
 #if DEBUG

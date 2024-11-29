@@ -18,6 +18,7 @@
                FontSize="50"
                FontFamily="{ DynamicResource BoldFontFamily }"
                HorizontalOptions="Center"
+               HorizontalTextAlignment="Center"
                FontAttributes="Bold">
             <Label.Shadow>
                 <Shadow Radius="8" Opacity="0.4" Brush="Black" />
@@ -64,58 +65,6 @@
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </HorizontalStackLayout>
-
-        <!--<Label Grid.Row="3"
-               TextColor="White"
-               FontSize="18"
-               FontFamily="{ DynamicResource BoldFontFamily }"
-               VerticalOptions="End"
-               Text="Colors" />
-
-        <HorizontalStackLayout Grid.Row="4"
-                               Padding="10,0"
-                               Margin="0,20,0,50"
-                               Spacing="18"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               BindableLayout.ItemsSource="{ Binding BackgroundColors }">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <RoundRectangle Fill="{ Binding . }"
-                                    CornerRadius="12"
-                                    HeightRequest="60"
-                                    WidthRequest="60">
-                         <RoundRectangle.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{ Binding BindingContext.SelectBackgroundCommand, Source={x:Reference root} }"
-                                CommandParameter="{ Binding . }" />
-                        </RoundRectangle.GestureRecognizers>
-                    </RoundRectangle>
-
-                    <local:SelectableBorder
-                        SelectedValue="{ Binding BindingContext.SelectedColor, Source={x:Reference root} }"
-                        HeightRequest="60"
-                        WidthRequest="60"
-                        Background="{ Binding . }"
-                        Stroke="White"
-                        StrokeThickness="4"
-                        StrokeShape="RoundRectangle 12">
-
-                        <local:SelectableBorder.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{ Binding BindingContext.SelectBackgroundCommand, Source={x:Reference root} }"
-                                CommandParameter="{ Binding . }" />
-                        </local:SelectableBorder.GestureRecognizers>
-
-                        <local:SelectableBorder.SelectedStyle>
-                            <Style TargetType="local:SelectableBorder">
-                                <Setter Property="Stroke" Value="Black" />
-                            </Style>
-                        </local:SelectableBorder.SelectedStyle>
-                    </local:SelectableBorder>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </HorizontalStackLayout>-->
 
         <Button Grid.Row="5"
                 Command="{ Binding StartGameCommand }"
