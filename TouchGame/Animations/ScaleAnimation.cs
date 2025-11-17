@@ -11,8 +11,8 @@ namespace TouchGame
 
         public override async Task Animate(VisualElement view, CancellationToken token = default)
         {
-            await view.ScaleTo(UpScale, Length, Easing);
-            await view.ScaleTo(DownScale ?? 1, DownLength ?? Length, Easing);
+            await view.ScaleToAsync(UpScale, Length, Easing);
+            await view.ScaleToAsync(DownScale ?? 1, DownLength ?? Length, Easing);
         }
     }
 }

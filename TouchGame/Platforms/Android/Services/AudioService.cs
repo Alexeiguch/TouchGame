@@ -1,4 +1,5 @@
 ﻿using Android.Media;
+using Android.OS;
 
 namespace TouchGame
 {
@@ -14,7 +15,20 @@ namespace TouchGame
             {
                 _mediaPlayer = new MediaPlayer();
                 _mediaPlayer.Prepared += MediaPlayerOnPrepared;
-                _mediaPlayer.SetDataSource(Platform.CurrentActivity.Assets!.OpenFd(audio));
+                
+                if (Build.VERSION.SdkInt >= BuildVersionCodes.N)
+                {
+                    // Android 24+ (API 24)
+                    _mediaPlayer.SetDataSource(Platform.CurrentActivity.Assets!.OpenFd(audio));
+                }
+                else
+                {
+                    // Android 21-23 fallback
+                    var afd = Platform.CurrentActivity.Assets!.OpenFd(audio);
+                    _mediaPlayer.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
+                    afd.Close();
+                }
+                
                 _mediaPlayer.PrepareAsync();
             }
             catch (Exception ex)
@@ -36,4 +50,3 @@ namespace TouchGame
         }
     }
 }
-

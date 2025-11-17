@@ -61,9 +61,8 @@ public class SelectableButton : Button
     private Dictionary<BindableProperty, object> SettedProperties = new Dictionary<BindableProperty, object>();
 
     public SelectableButton()
-	{
-		
-	}
+    {
+    }
 
     protected override void OnBindingContextChanged()
     {

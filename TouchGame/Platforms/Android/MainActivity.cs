@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using AndroidX.Core.Content;
+using AndroidX.Core.View;
 
 namespace TouchGame;
 
@@ -8,4 +10,3 @@ namespace TouchGame;
 public class MainActivity : MauiAppCompatActivity
 {
 }
-

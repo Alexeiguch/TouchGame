@@ -50,11 +50,10 @@
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception _)
             {
-                //DialogServices.DisplayAlertAsync(title ?? AppResources.StringSomethingWrongHere, message ?? AppResources.StringSomethingWrongHere, okButton ?? AppResources.StringOK).Forget();
-
-                //CrashesHelper.TrackError(ex);
+                // DialogServices.DisplayAlertAsync(title ?? AppResources.StringSomethingWrongHere, message ?? AppResources.StringSomethingWrongHere, okButton ?? AppResources.StringOK).Forget();
+                // CrashesHelper.TrackError(ex);
 
                 return false;
             }

@@ -15,8 +15,8 @@ public partial class WelcomePage : ContentPage
 		{
 			this.Behaviors.Add(new StatusBarBehavior
 			{
-				StatusBarColor = Colors.Black,
-				StatusBarStyle = StatusBarStyle.LightContent
+				// StatusBarColor = Colors.Black,
+				StatusBarStyle = StatusBarStyle.DarkContent
 			});
 		}
 	}
