@@ -18,4 +18,4 @@ Use more fingers than the selected winner count. Keep fingers in the game area a
 
 ## Privacy
 
-Touch Game works offline and does not collect personal data. Read the [privacy policy](privacy.html) for details.
+Touch Game works offline and does not collect personal data. Read the [privacy policy](https://github.com/Alexeiguch/TouchGame/blob/codex/app-store-pages/privacy.md) for details.
